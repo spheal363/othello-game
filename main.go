@@ -76,7 +76,7 @@ func reversible(board [4][4]int, x int, y int, bante int) bool{
                 if is_on_board(x+i, y+j) == false {
                     continue
 				}else{
-					if board[x+i][y+j] != 2 {
+					if board[x+i][y+j] != (3 - bante) {
                         continue
 					}else{
 						isMyColorAppearAgain(board, x, y, i, j, bante)
@@ -141,6 +141,12 @@ func main() {
 
     
     for{
+		if bante == 1{
+            fmt.Println("現在は黒の番です")
+		}else{
+			fmt.Println("現在は白の番です")
+		}
+		fmt.Println("範囲内に入力してください")
 		_, err := fmt.Scan(&x, &y)
 		if err != nil {
 			fmt.Println("入力エラー:", err)
@@ -152,6 +158,11 @@ func main() {
 			if reversible(board, x, y, bante) == true{
                 board = updateboard(board,x, y, bante)
 				show_board(board)
+				if bante == 1 {
+					bante = 2
+				}else{
+					bante = 1
+				}
 			}else{
 				fmt.Println("挟めません")
 			}
