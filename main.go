@@ -128,19 +128,50 @@ func show_win_lose(board [4][4]int){
 func main() {
 	// 0: 空白, 1: 黒, 2: 白
 	board := [4][4]int{
-		{0, 0, 0, 0},
-		{0, 1, 2, 0},
-		{0, 2, 1, 0},
-		{0, 0, 0, 0},
+		{2, 2, 2, 2},
+		{2, 2, 2, 2},
+		{2, 2, 2, 2},
+		{1, 2, 0, 0},
 	} 
 	var x int
 	var y int
 	bante := 1
+	var flag bool = false
 
 	show_board(board)
 
     
     for{
+		can_put := false
+		is_reversible := false
+		for i:=0; i < 4; i++ {
+			for j:=0; j < 4; j++ {
+				if board[i][j] == 0 {
+					is_reversible = reversible(board, i, j, bante)
+				}
+				if is_reversible == true {
+					can_put = true
+					break
+				}
+			}
+			if can_put == true {
+				break
+			}
+		}
+		reverse = nil
+		if can_put == false {
+			if bante == 1{
+				fmt.Println("黒はスキップされました")
+			}else{
+				fmt.Println("白はスキップされました")
+			}
+			if flag == true {
+				break
+			}
+			bante = 3 - bante
+			flag = true
+			continue
+		}
 		if bante == 1{
 			fmt.Println("現在は黒の番です")
 		}else{
@@ -155,8 +186,10 @@ func main() {
 		if is_on_board(x, y) == false{
 			fmt.Println("範囲外です")
 		}else{
-			if reversible(board, x, y, bante) == true{
-                board = updateboard(board,x, y, bante)
+			is_reversible := reversible(board, x, y, bante)
+			if (is_reversible == true) {
+            	board = updateboard(board,x, y, bante)
+				flag = false
 				show_board(board)
 				if bante == 1 {
 					bante = 2
