@@ -142,7 +142,7 @@ func main() {
     
     for{
 		if bante == 1{
-            fmt.Println("現在は黒の番です")
+			fmt.Println("現在は黒の番です")
 		}else{
 			fmt.Println("現在は白の番です")
 		}
