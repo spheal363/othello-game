@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strings"
+	"os"
 )
 
 var N int = 4
@@ -100,6 +101,30 @@ func updateboard(board [4][4]int, x int, y int, bante int) [4][4]int{
 	return board
 }
 
+func show_win_lose(board [4][4]int){
+	var white int = 0
+	var black int = 0
+	for i :=0; i < 4; i += 3{
+		for j := 0; j < 4; j += 3{
+			if board[i][j] == 1{
+				black += 1
+			}else if board[i][j] == 2{
+				white += 1 
+			}
+		}
+	} 
+	if white==black{
+		fmt.Println("引き分けです")
+		os.Exit(0)
+	}else if white > black{
+		fmt.Println("白の勝ちです")
+		os.Exit(0)
+	}else{
+		fmt.Println("黒の勝ちです")
+		os.Exit(0)
+	}
+}
+
 func main() {
 	// 0: 空白, 1: 黒, 2: 白
 	board := [4][4]int{
@@ -113,6 +138,7 @@ func main() {
 	bante := 1
 
 	show_board(board)
+
     
     for{
 		if bante == 1{
@@ -142,4 +168,5 @@ func main() {
 			}
 		}
 	}
+	show_win_lose(board)
 }
